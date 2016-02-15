@@ -15,40 +15,47 @@ ingredients = {
     "sweet": ["sugar cube", "spoonful of honey", "spash of cola"],
     "fruity": ["slice of orange", "dash of cassis", "cherry on top"],
     }
+    
+drinkNamePrefixes = ["Fluffy", "Stinking", "Dirty", "Hairy"]
+drinkNameSuffixes = ["Bastard", "Sea-Dog", "Mermaid", "Whale"]
 
 def GetDrinkStyle(): 
    """determine the style of drink the customer likes """
    styleResponses = {}
    for drinkstylequestions in questions:
       styleResponses[drinkstylequestions] = input(questions[drinkstylequestions] ) in ("y", "yes")
-
-   #print(styleResponses)
-
    return styleResponses
    
 
 def ConstructDrink(drinkStyleResponses):
    """ Build the drink! """
-   
    drinkIngredients = []
-
    for ingredient in ingredients:
       if drinkStyleResponses[ingredient] == True:
-         #get a random ingredient that has the same key
-         #print(random.choice(ingredients[ingredient]))
          drinkIngredients.append(random.choice(ingredients[ingredient]))
-         
    return drinkIngredients
 
-#print(ConstructDrink(GetDrinkStyle()))
+def main():
+    
+    wantToDrink = True
+    
+    while wantToDrink:
+        drinkIngredients = ConstructDrink(GetDrinkStyle())
+        print()
+        print("ere be yer drink yer dirty landlubber:")
+        print()
+        for n in range (0, len(drinkIngredients)):
+            print("{}".format(drinkIngredients[n]))
+        print("\nI call this a {} {}\n".format(random.choice(drinkNamePrefixes), random.choice(drinkNameSuffixes)))
+
+        if input("Does ye want another drink ya greedy mug?") in ("y", "yes"):
+            wantToDrink = True
+            print()
+        else:
+            wantToDrink = False
+            print("\nBe gone with yer then!\n")
+
 
 if __name__ == '__main__':
-    drinkIngredients = ConstructDrink(GetDrinkStyle())
+    main()
     
-    print()
-    print("ere be yer drink yer dirty landlubber:")
-    print()
-    for n in range (0, len(drinkIngredients)):
-        print(drinkIngredients[n])
-        
-    print()
